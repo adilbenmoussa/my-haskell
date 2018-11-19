@@ -1,0 +1,2 @@
+# my-haskell
+learning haskell
