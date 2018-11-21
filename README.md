@@ -6,6 +6,6 @@ links:
 
 commands:
   start: `ghci`
-  relead: `r:`
+  (re)load: `:l myfunctions` or `r:`
   get type: `t: <classtype>` 
 

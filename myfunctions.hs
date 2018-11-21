@@ -93,5 +93,8 @@ calcBmis :: (RealFloat a) => [(a, a)] -> [a]
 calcBmis xs = [bmi w h | (w, h) <- xs]
     where bmi weight height = weight / height ^ 2
 
-    -- NEXT
-    -- Let it be !!
+cylinder :: (RealFloat a) => a -> a -> a
+cylinder rd ht = 
+    let sideArea = 2 * pi * rd * ht
+        topArea = pi * rd ^ 2
+    in sideArea + 2 * topArea
