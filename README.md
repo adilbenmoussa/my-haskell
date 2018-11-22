@@ -1,8 +1,8 @@
 # my-haskell
 learning haskell
 
-links:
-  http://learnyouahaskell.com/
+### links:
+  * http://learnyouahaskell.com/
 
 commands:
   start: `ghci`
