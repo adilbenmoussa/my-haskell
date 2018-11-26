@@ -171,3 +171,94 @@ quicksort' (x:xs) =
         max = quicksort' [a | a <- xs, a > x]
     in min ++ [x] ++ max
 
+--  higher-order-functions
+
+multThree :: (Num a) => a -> a -> a -> a
+multThree x y z = x * y * z
+    
+compareWithHundred :: (Num a, Ord a) => a -> Ordering
+compareWithHundred = compare 100 -- equals to : compareWithHundred x = compare 100 x
+
+devideByTen :: (Floating a) => a -> a
+devideByTen = (/10) -- Infix function
+
+isUpperAlphanum :: Char -> Bool
+isUpperAlphanum = (`elem` ['A'..'Z'])
+
+applyTwice :: (a -> a) -> a -> a
+applyTwice f x = f (f x)
+    -- results: 
+    -- applyTwice (subtract 3) 5 prints -1
+    -- applyTwice (3:) [1] print [3,3,1]
+    -- applyTwice (++ [3]) [1] print [1,3,3]
+    -- applyTwice ("Hello " ++) "Adil" prints "Hello Hello Adil"
+
+zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith' _ [] _ = []
+zipWith' _ _ [] = []
+zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys
+
+flip' :: (a -> b -> c) -> b -> a -> c  
+flip' f x y = f y x
+
+map' :: (a -> b) -> [a] -> [b]
+map' _ [] = []
+map' f (x:xs) = f x : map' f xs
+
+filter' :: (a -> Bool) -> [a] -> [a]
+filter' _ [] = []
+filter' f (x:xs) 
+    | f x = x : filter' f xs
+    | otherwise = filter' f xs
+
+quicksort'' :: (Ord a) => [a] -> [a]
+quicksort'' [] = []
+quicksort'' (x:xs) = 
+    let min = quicksort' (filter' (<= x) xs)
+        max = quicksort' (filter' (> x) xs)
+    in min ++ [x] ++ max
+
+
+largestDivisible :: (Integral a) => a  
+largestDivisible = head (filter' f [100000,99999..])
+    where f x = x `mod` 3829 == 0
+
+-- TODO Collatz sequences
+
+-- Lambdas
+
+sum'' :: (Num a) => [a] -> a
+sum'' xs = foldl (\acc x -> acc + x) 0 xs -- sum'' = foldl (+) 0
+
+elem'' :: (Eq a) => a -> [a] -> Bool 
+elem'' y = foldl (\acc x -> if x == y then True else acc) False
+
+map'' :: (a -> b) -> [a] -> [b]
+map'' f = foldr (\x acc -> f x : acc) []
+
+maximus'' :: (Ord a) => [a] -> a
+maximus'' = foldl1 (\acc x -> if acc > x then acc else x)
+
+reverse'' :: [a] -> [a]
+reverse'' = foldl (\acc x -> x : acc) []
+
+product' :: (Num a) => [a] -> a
+product' = foldr1 (*)
+
+filter'' :: (a -> Bool) -> [a] -> [a]
+filter'' f = foldr (\x acc -> if f x then x : acc else acc) []
+
+head''' :: [a] -> a  
+head''' = foldr1 (\x _ -> x)  
+  
+last'' :: [a] -> a  
+last'' = foldl1 (\_ x -> x) 
+
+-- Function application with $
+-- ($) :: (a -> b) -> a -> b
+-- f $ x = f x
+
+-- Function composition
+-- (.) :: (b -> c) -> (a -> b) -> a -> c
+-- f . g = \x -> f (g x)
+
